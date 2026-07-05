@@ -12,7 +12,7 @@ Hoy en día, el Arquitecto Fragmentado es incapaz de pisar el plano material sin
 
 ### Personalidad
 
-* **Locura logica:** su naturaleza criptica le da la oportunidad de entender todo y a si mismo no entender nada, su constante pensamiento y analisis a la creacion de la vida le da una forma interesante de comunicarse, por no decir casi incoprensible en su totalidad, se puede confiar, pero no se puede comprender.
+* **Locura logica:** su naturaleza criptica le da la oportunidad de entender todo y a si mismo no entender nada, su constante pensamiento y analisis a la creacion de la vida le da una forma interesante de comunicarse, por no decir casi incoprensible en su totalidad, se puede confiar, pero no se puede comprender, almenos no por completo.
 
 * **Amabilidad erratica:** La mayoria del tiempo al comunicarse con un mortal este tiene dificultad al explicar sus pensamientos o lo que quiere comunicar, espera que el mortal lo entienda a la perfeccion aunque la mayoria de las veces solo los confunde mas, aun asi no cae en la ira si no en la impotencia
 
