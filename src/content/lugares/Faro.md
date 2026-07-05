@@ -1,7 +1,7 @@
 ---
 nombre: "Faro de Kalliste"
 reino: "elarion"
-imagen: "/images/minas.jpeg"
+imagen: "/images/Faro.jpeg"
 tipo: "Centinela de piedra azulada"
 ---
 Situado en el límite donde la roca del acantilado besa el horizonte, el Faro de Kalliste se erige  como una centinela de piedra azulada, guiando con su luz mística tanto a los marineros de la  superficie como a las criaturas que emergen de las profundidades. 

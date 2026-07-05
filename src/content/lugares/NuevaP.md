@@ -1,7 +1,7 @@
 ---
 nombre: "Nueva Pontéia"
 reino: "elarion"
-imagen: "/images/Minas.jpeg"
+imagen: "/images/nuevaP.jpeg"
 tipo: "joya resplandeciente bajo las olas"
 ---
 Bienvenido a Nueva Pontéia, la joya resplandeciente bajo las olas y la extensión marítima más  prestigiosa de Elarion. Lo que en eras pasadas funcionó como un férreo cuartel militar,  diseñado para la defensa y la estrategia, ha experimentado una metamorfosis sin precedentes. Tras su histórica unión con el territorio de Hyléia, las murallas que antes albergaban soldados  se han transformado en las vitrinas más elegantes del continente. 
