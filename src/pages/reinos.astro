@@ -1,0 +1,57 @@
+---
+// src/pages/reinos.astro
+import { getCollection } from 'astro:content';
+import Card from '../components/Card.astro';
+import '../styles/global.css';
+
+const listaReinos = await getCollection('reinos');
+const title = "REINOS DE ELFHEIM";
+---
+
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-[#0c0617] text-[#f8fafc] font-['Urbanist'] antialiased min-h-screen">
+    
+    <div class="fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_10%,rgba(212,175,55,0.03),transparent_50%)] pointer-events-none"></div>
+
+    <div class="relative z-10 container mx-auto px-6 py-12 max-w-6xl">
+        
+        <a href="/" class="text-xs font-bold tracking-widest text-[#d4af37] hover:text-[#f8fafc] transition-colors mb-8 inline-block">
+            ← VOLVER AL PORTAL
+        </a>
+
+        <header class="mb-16 border-b border-[#2e1065]/30 pb-8">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tighter text-[#d4af37] mb-4">
+                {title}
+            </h1>
+            <p class="text-lg text-[#cbd5e1] max-w-2xl font-light">
+                Las grandes facciones y territorios que dividen el mundo medieval de Elfheim.
+            </p>
+        </header>
+
+        {listaReinos.length === 0 ? (
+            <div class="p-12 text-center bg-[#1a0b2e] border border-[#3b0764] rounded-xl">
+                <p class="text-[#94a3b8]">Ningún reino ha reclamado tierras en el códice todavía.</p>
+            </div>
+        ) : (
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {listaReinos.map((reino) => (
+                    <Card 
+                        name={reino.data.nombre} 
+                        image={reino.data.imagen || "/images/Elfheim-fondo2.jpg"}
+                        subtext="Territorio Reclamado"
+                        href={`/reinos/${reino.id}`}
+                    />
+                ))}
+            </div>
+        )}
+
+    </div>
+</body>
+</html>

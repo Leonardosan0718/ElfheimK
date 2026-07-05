@@ -1,0 +1,131 @@
+---
+// src/pages/dioses/[slug].astro
+import { getCollection, render } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+    const dioses = await getCollection('dioses');
+    return dioses.map(dios => ({
+        params: { slug: dios.id },
+        props: { dios },
+    }));
+}
+
+const { dios } = Astro.props;
+const { Content } = await render(dios);
+const imagenFondo = dios.data.imagen || "/images/Elfheim-fondo2.jpg";
+---
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{dios.data.nombre} | Registro Divino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0c0617] text-[#cbd5e1] font-['Urbanist'] antialiased min-h-screen">
+    
+    <div class="fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,175,55,0.08),transparent_50%)] pointer-events-none"></div>
+
+    <div class="relative w-full h-[50vh] min-h-[400px] border-b border-[#d4af37]/30 overflow-hidden">
+        <img src={imagenFondo} alt={dios.data.nombre} class="absolute inset-0 w-full h-full object-cover opacity-30 scale-105" />
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0617] via-[#0c0617]/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c0617]/80 via-transparent to-[#0c0617]/80"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 w-full max-w-4xl mx-auto px-6 md:px-12 pb-12 z-10 flex flex-col justify-end h-full">
+            <a href="/dioses" class="text-[11px] font-bold tracking-[0.2em] text-[#d4af37] hover:text-[#fef08a] transition-colors mb-6 inline-flex items-center gap-2 uppercase group w-fit">
+                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> VOLVER AL PANTEÓN
+            </a>
+            
+            {dios.data.elemento && (
+                <span class="text-[#f8fafc] font-mono tracking-[0.25em] uppercase text-[10px] block mb-2 border border-[#d4af37]/40 w-fit px-3 py-1 rounded-full backdrop-blur-sm bg-[#d4af37]/10 font-bold shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    Dominio: {dios.data.elemento}
+                </span>
+            )}
+            <h1 class="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] via-[#fef08a] to-[#d4af37] drop-shadow-[0_0_30px_rgba(212,175,55,0.3)] uppercase tracking-tight mt-2">
+                {dios.data.nombre}
+            </h1>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 md:px-12 py-16 relative z-10">
+        <section class="relative bg-[#140a24]/40 border border-[#d4af37]/20 rounded-2xl p-8 md:p-12 backdrop-blur-md shadow-2xl">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-[2px] bg-gradient-to-r from-transparent via-[#d4af37]/60 to-transparent"></div>
+            
+            <h2 class="text-xs font-mono tracking-[0.3em] text-[#d4af37] uppercase mb-10 flex items-center justify-center gap-4">
+                <span class="w-8 h-[1px] bg-[#d4af37]/30"></span> 
+                Inscripciones Sagradas 
+                <span class="w-8 h-[1px] bg-[#d4af37]/30"></span>
+            </h2>
+            
+            <article class="dios-sagrado text-[#94a3b8] text-base md:text-lg leading-[2.1] font-light max-w-none">
+                <Content />
+            </article>
+        </section>
+    </main>
+</body>
+</html>
+
+<style is:global>
+    /* Estilos para el Códice de los Dioses */
+    .dios-sagrado p {
+        margin-bottom: 2rem;
+        text-align: justify;
+    }
+    .dios-sagrado h3 {
+        color: #fef08a; /* Amarillo brillante */
+        font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        font-size: 1.25rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 4rem;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+    }
+    /* Línea decorativa dorada para los títulos h3 */
+    .dios-sagrado h3::after {
+        content: "";
+        flex-grow: 1;
+        height: 1px;
+        background: linear-gradient(to right, rgba(212, 175, 55, 0.5), transparent);
+    }
+    /* Estilos para listas divinas */
+    .dios-sagrado ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 3rem;
+        background: rgba(212, 175, 55, 0.03);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px aria-hidden border-white/5;
+    }
+    .dios-sagrado li {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 1.25rem;
+        color: #cbd5e1;
+    }
+    /* Icono de diamante dorado para las viñetas */
+    .dios-sagrado li::before {
+        content: "✦";
+        position: absolute;
+        left: 0;
+        color: #d4af37;
+        font-size: 1rem;
+    }
+    /* Resaltado de nombres sagrados o conceptos */
+    .dios-sagrado strong {
+        color: #fef08a;
+        font-weight: 700;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+    /* Cursivas elegantes */
+    .dios-sagrado em {
+        color: #e2e8f0;
+        font-style: italic;
+        opacity: 0.9;
+    }
+</style>

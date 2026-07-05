@@ -1,0 +1,104 @@
+---
+// src/pages/index.astro
+import '../styles/global.css';
+
+const title = "ELFHEIM: EL PORTAL";
+---
+
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0c0617] text-[#f8fafc] font-['Urbanist'] antialiased min-h-screen flex flex-col justify-center relative">
+
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <img src="/images/Elfheim-fondo2.jpg" alt="Fondo de Elfheim" class="w-full h-full object-cover opacity-30" />
+        <div class="absolute inset-0 bg-gradient-to-b from-[#0c0617]/80 via-[#0c0617]/60 to-[#0c0617]/95"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(99,102,241,0.05),transparent_50%)]"></div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-6 py-16 max-w-7xl w-full">
+
+        <header class="text-center mb-16">
+            <span class="text-xs font-mono tracking-[0.3em] text-[#d4af37] uppercase block mb-3 drop-shadow-md">Archivo de Rol Oficial</span>
+            <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-[#f8fafc] to-[#cbd5e1] drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                ELFHEIM
+            </h1>
+            <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mx-auto mt-6 mb-4"></div>
+            <p class="text-base md:text-lg text-[#cbd5e1] max-w-xl mx-auto font-light leading-relaxed drop-shadow-md">
+                Bienvenido al códice sagrado. Elige tu destino, consulta las crónicas y adéntrate en los misterios de las facciones.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+
+            <a href="/dioses" class="relative group block bg-[#140a24]/60 border border-[#d4af37]/30 hover:border-[#d4af37] rounded-2xl p-6 backdrop-blur-md transition-all hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(212,175,55,0.25)] overflow-hidden flex flex-col justify-between min-h-[250px]">
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#d4af37]/10 rounded-full blur-3xl group-hover:bg-[#d4af37]/20 transition-all duration-500"></div>
+                <div class="relative z-10">
+                    <span class="text-[10px] font-mono tracking-widest text-[#d4af37] uppercase block mb-2 drop-shadow-md">Mitos Sagrados</span>
+                    <h3 class="text-2xl font-black tracking-tight text-[#f8fafc] uppercase drop-shadow-md">Panteón</h3>
+                    <p class="text-[#cbd5e1] text-xs mt-3 font-light leading-relaxed">
+                        Contempla a las deidades supremas, sus mandamientos y el flujo del poder divino sobre los mortales.
+                    </p>
+                </div>
+                <div class="relative z-10 mt-6 flex items-center text-xs font-bold tracking-widest text-[#d4af37] uppercase drop-shadow-md">
+                    Ver Dioses <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+            </a>
+
+            <a href="/reinos" class="relative group block bg-[#140a24]/60 border border-[#3b82f6]/30 hover:border-[#3b82f6] rounded-2xl p-6 backdrop-blur-md transition-all hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(59,130,246,0.25)] overflow-hidden flex flex-col justify-between min-h-[250px]">
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#3b82f6]/10 rounded-full blur-3xl group-hover:bg-[#3b82f6]/20 transition-all duration-500"></div>
+                <div class="relative z-10">
+                    <span class="text-[10px] font-mono tracking-widest text-[#3b82f6] uppercase block mb-2 drop-shadow-md">Cartografía Táctica</span>
+                    <h3 class="text-2xl font-black tracking-tight text-[#f8fafc] uppercase drop-shadow-md">Reinos</h3>
+                    <p class="text-[#cbd5e1] text-xs mt-3 font-light leading-relaxed">
+                        Explora las fronteras, capitales políticas y la distribución geográfica de las grandes potencias mundiales.
+                    </p>
+                </div>
+                <div class="relative z-10 mt-6 flex items-center text-xs font-bold tracking-widest text-[#3b82f6] uppercase drop-shadow-md">
+                    Explorar <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+            </a>
+
+            <a href="/bestiario" class="relative group block bg-[#140a24]/60 border border-[#10b981]/30 hover:border-[#10b981] rounded-2xl p-6 backdrop-blur-md transition-all hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(16,185,129,0.25)] overflow-hidden flex flex-col justify-between min-h-[250px]">
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#10b981]/10 rounded-full blur-3xl group-hover:bg-[#10b981]/20 transition-all duration-500"></div>
+                <div class="relative z-10">
+                    <span class="text-[10px] font-mono tracking-widest text-[#10b981] uppercase block mb-2 drop-shadow-md">Peligro Salvaje</span>
+                    <h3 class="text-2xl font-black tracking-tight text-[#f8fafc] uppercase drop-shadow-md">Bestiario</h3>
+                    <p class="text-[#cbd5e1] text-xs mt-3 font-light leading-relaxed">
+                        Analiza las amenazas naturales, criaturas místicas y monstruosidades que acechan en las sombras.
+                    </p>
+                </div>
+                <div class="relative z-10 mt-6 flex items-center text-xs font-bold tracking-widest text-[#10b981] uppercase drop-shadow-md">
+                    Ver Criaturas <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+            </a>
+
+            <a href="/personaje" class="relative group block bg-[#140a24]/60 border border-[#a855f7]/40 hover:border-[#a855f7] rounded-2xl p-6 backdrop-blur-md transition-all hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] overflow-hidden flex flex-col justify-between min-h-[250px]">
+                <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-[#a855f7]/15 rounded-full blur-3xl group-hover:bg-[#a855f7]/25 transition-all duration-500"></div>
+                <div class="relative z-10">
+                    <span class="text-[10px] font-mono tracking-widest text-[#d4af37] uppercase block mb-2 drop-shadow-md">Registro de Héroes</span>
+                    <h3 class="text-2xl font-black tracking-tight text-[#f8fafc] group-hover:text-[#d8b4fe] transition-colors uppercase drop-shadow-md">
+                        Personajes
+                    </h3>
+                    <p class="text-[#cbd5e1] text-xs mt-3 font-light leading-relaxed">
+                        Consulta las razas endémicas, selecciona la que mas te acomode y la clase que mas te acomode (solo puedes escoger una raza y clase del mismo reino), para crear tu ficha
+                    </p>
+                </div>
+                <div class="relative z-10 mt-6 flex items-center text-xs font-bold tracking-widest text-[#a855f7] group-hover:text-[#d8b4fe] transition-colors uppercase drop-shadow-md">
+                    Iniciar Forja <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+            </a>
+
+        </div>
+
+        <footer class="mt-20 text-center text-[10px] font-mono tracking-widest text-gray-500 drop-shadow-md">
+            SISTEMA DE ROL PROPIO — ELFHEIM V1.0
+        </footer>
+
+    </div>
+</body>
+</html>

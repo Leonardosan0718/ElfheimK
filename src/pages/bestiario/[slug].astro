@@ -1,0 +1,99 @@
+---
+// src/pages/bestiario/[slug].astro
+import { getCollection, render } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+    const criaturas = await getCollection('bestiario');
+    return criaturas.map(criatura => ({
+        params: { slug: criatura.id },
+        props: { criatura },
+    }));
+}
+
+const { criatura } = Astro.props;
+const { Content } = await render(criatura);
+const imagenFondo = criatura.data.image || "/images/Elfheim-fondo2.jpg";
+---
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{criatura.data.name} | Bestiario de Elfheim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0c0617] text-[#cbd5e1] font-['Urbanist'] antialiased min-h-screen">
+    
+    <div class="relative w-full h-[45vh] min-h-[350px] border-b border-red-900/30 overflow-hidden">
+        <img src={imagenFondo} alt={criatura.data.name} class="absolute inset-0 w-full h-full object-cover opacity-25 scale-105" />
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0617] via-[#0c0617]/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c0617]/80 via-transparent to-[#0c0617]/80"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 w-full max-w-4xl mx-auto px-6 md:px-12 pb-12 z-10 flex flex-col justify-end h-full">
+            <a href="/bestiario" class="text-[11px] font-bold tracking-[0.2em] text-red-400 hover:text-red-300 transition-colors mb-6 inline-flex items-center gap-2 uppercase group w-fit">
+                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> REGRESAR AL BESTIARIO
+            </a>
+            
+            <div class="flex flex-wrap gap-2 items-center mb-2">
+                <span class="text-red-400 font-mono tracking-widest text-[10px] bg-red-950/50 border border-red-500/30 px-2.5 py-0.5 rounded uppercase font-bold">
+                    Amenaza Detectada
+                </span>
+                {criatura.data.reino && (
+                    <span class="text-gray-400 font-mono tracking-widest text-[10px] bg-white/5 border border-white/10 px-2.5 py-0.5 rounded uppercase">
+                        Hábitat: {criatura.data.reino}
+                    </span>
+                )}
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f8fafc] via-red-200 to-red-500 drop-shadow-[0_0_30px_rgba(239,68,68,0.2)] uppercase tracking-tight">
+                {criatura.data.name}
+            </h1>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-6 md:px-12 py-16">
+        <div class="relative bg-[#140a24]/30 border border-red-500/10 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
+            <div class="absolute top-0 left-8 w-32 h-[1px] bg-gradient-to-r from-transparent via-red-500/40 to-transparent"></div>
+            
+            <h2 class="text-xs font-mono tracking-[0.25em] text-red-400 uppercase mb-10 flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)]"></span> Archivo del Espécimen
+            </h2>
+            
+            <article class="markdown-tactico text-[#94a3b8] text-base md:text-lg leading-[2] font-light max-w-none">
+                <Content />
+            </article>
+        </div>
+    </main>
+</body>
+</html>
+
+<style is:global>
+    /* Magia para que el Markdown tome el diseño militar automáticamente */
+    .markdown-tactico p {
+        margin-bottom: 2rem;
+    }
+    .markdown-tactico p:last-child {
+        margin-bottom: 0;
+    }
+    .markdown-tactico h3 {
+        color: #ef4444; /* text-red-500 */
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.875rem; /* text-sm */
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        border-bottom: 1px solid rgba(127, 29, 29, 0.5); /* border-red-900/50 */
+        padding-bottom: 0.75rem;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        font-weight: bold;
+    }
+    .markdown-tactico strong {
+        color: #fca5a5; /* text-red-300 */
+        font-weight: bold;
+    }
+    .markdown-tactico em {
+        color: #e2e8f0; /* un gris un poco más claro para las cursivas */
+        font-style: italic;
+    }
+</style>

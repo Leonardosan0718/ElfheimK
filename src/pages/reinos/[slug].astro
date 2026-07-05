@@ -1,0 +1,115 @@
+---
+// src/pages/reinos/[slug].astro
+import { getCollection, render } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+    const reinos = await getCollection('reinos');
+    return reinos.map(reino => ({
+        params: { slug: reino.id },
+        props: { reino },
+    }));
+}
+
+const { reino } = Astro.props;
+const { Content } = await render(reino);
+
+// Traemos todos los lugares y filtramos los que pertenecen a este reino
+const todosLosLugares = await getCollection('lugares');
+const lugaresDelReino = todosLosLugares.filter(lugar => lugar.data.reino === reino.id);
+
+const imagenFondo = reino.data.imagen || "/images/Elfheim-fondo2.jpg";
+---
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{reino.data.nombre} | Territorio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0c0617] text-[#cbd5e1] font-['Urbanist'] antialiased min-h-screen">
+    
+    <div class="relative w-full h-[50vh] min-h-[400px] border-b border-[#3b82f6]/20 overflow-hidden">
+        <img src={imagenFondo} alt={reino.data.nombre} class="absolute inset-0 w-full h-full object-cover opacity-20 scale-105" />
+        
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0c0617] via-[#0c0617]/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0c0617]/80 via-transparent to-[#0c0617]/80"></div>
+        
+        <div class="absolute bottom-0 left-0 right-0 w-full max-w-5xl mx-auto px-6 md:px-12 pb-12 z-10 flex flex-col justify-end h-full">
+            <a href="/reinos" class="text-[11px] font-bold tracking-[0.2em] text-[#3b82f6] hover:text-[#60a5fa] transition-colors mb-6 inline-flex items-center gap-2 uppercase group w-fit">
+                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> VOLVER A GEOGRAFÍA
+            </a>
+            <span class="text-[#d4af37] font-mono tracking-[0.25em] uppercase text-xs block mb-2 drop-shadow-md">Códice de Fronteras</span>
+            <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f8fafc] via-[#60a5fa] to-[#3b82f6] drop-shadow-[0_0_30px_rgba(59,130,246,0.25)] uppercase tracking-tight">
+                {reino.data.nombre}
+            </h1>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-6 md:px-12 py-16 space-y-24">
+        
+        <section class="relative bg-[#140a24]/30 border border-[#3b82f6]/10 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
+            <div class="absolute top-0 left-8 w-32 h-[1px] bg-gradient-to-r from-transparent via-[#d4af37]/60 to-transparent"></div>
+            
+            <h2 class="text-xs font-mono tracking-[0.25em] text-[#d4af37] uppercase mb-8 flex items-center gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-[#d4af37] animate-pulse"></span> Origen e Historia
+            </h2>
+            
+            <article class="text-[#94a3b8] text-base md:text-lg leading-[1.8] font-light space-y-6 max-w-none 
+                            prose prose-invert 
+                            prose-p:mb-6 last:prose-p:mb-0
+                            prose-strong:text-[#f8fafc] prose-strong:font-bold
+                            prose-headings:text-[#f8fafc] prose-headings:font-black prose-headings:mt-8">
+                <Content />
+            </article>
+        </section>
+
+        <section class="border-t border-[#3b82f6]/20 pt-16">
+            <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-black tracking-tight text-[#f8fafc] uppercase flex items-center gap-3">
+                        <span class="text-[#3b82f6]">🗺️</span> Asentamientos Clave
+                    </h2>
+                    <p class="text-sm text-[#64748b] mt-1 font-light">Lugares de interés, fortalezas políticas y regiones sagradas dentro del reino.</p>
+                </div>
+                <span class="text-[10px] font-mono tracking-widest text-[#3b82f6] bg-[#3b82f6]/10 px-3 py-1 rounded-full border border-[#3b82f6]/20">
+                    {lugaresDelReino.length} REGISTROS
+                </span>
+            </div>
+
+            {lugaresDelReino.length === 0 ? (
+                <div class="p-12 text-center bg-[#140a24]/40 border border-[#3b82f6]/10 rounded-2xl backdrop-blur-xs">
+                    <p class="text-xs text-[#475569] font-mono tracking-wider uppercase">No se han registrado coordenadas ni ciudades en este sector todavía.</p>
+                </div>
+            ) : (
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {lugaresDelReino.map(lugar => (
+                        <a href={`/lugares/${lugar.id}`} class="group relative block bg-[#140a24]/40 border border-[#3b82f6]/20 hover:border-[#3b82f6] rounded-xl p-5 backdrop-blur-md hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-all duration-300 flex gap-5 cursor-pointer overflow-hidden">
+                            
+                            <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-[#3b82f6]/5 rounded-full blur-2xl group-hover:bg-[#3b82f6]/10 transition-all duration-500"></div>
+
+                            <div class="w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden border border-white/10 shrink-0 relative">
+                                <img src={lugar.data.imagen || "/images/Elfheim-fondo2.jpg"} alt={lugar.data.nombre} class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
+                            </div>
+
+                            <div class="flex flex-col justify-between flex-grow py-0.5 relative z-10">
+                                <div>
+                                    {lugar.data.tipo && (
+                                        <span class="text-[9px] font-mono font-bold tracking-[0.15em] text-[#d4af37] uppercase block mb-1 drop-shadow-sm">{lugar.data.tipo}</span>
+                                    )}
+                                    <h3 class="text-lg md:text-xl font-bold text-[#f8fafc] group-hover:text-[#60a5fa] transition-colors line-clamp-2 tracking-tight leading-tight">{lugar.data.nombre}</h3>
+                                </div>
+                                
+                                <div class="text-[11px] text-[#3b82f6] group-hover:text-[#60a5fa] font-bold tracking-widest uppercase flex items-center gap-1 mt-3 transition-colors">
+                                    Adentrarse <span class="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                                </div>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            )}
+        </section>
+    </main>
+</body>
+</html>
