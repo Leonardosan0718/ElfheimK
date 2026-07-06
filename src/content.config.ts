@@ -34,11 +34,11 @@ const razas = defineCollection({
   schema: z.object({
     nombre: z.string(),
     reino: z.string(),
-    salud: z.number(),
-    resistencia: z.number(),
-    fuerza: z.number(),
-    velocidad: z.number(),
-    mana: z.number(),
+    salud: z.number().or(z.string()),
+    resistencia: z.number().or(z.string()),
+    fuerza: z.number().or(z.string()),
+    velocidad: z.number().or(z.string()),
+    mana: z.number().or(z.string()),
     imagen: z.string().optional(),
   }),
 });
